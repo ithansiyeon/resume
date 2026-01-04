@@ -21,7 +21,7 @@
   "homepage": "https://ithansiyeon.github.io/resume",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/uyu423/resume-nextjs.git"
+    "url": "git+https://github.com/ithansiyeon/resume-nextjs.git"
   },
   "keywords": [
     "resume",
