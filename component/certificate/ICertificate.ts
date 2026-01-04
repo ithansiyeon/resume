@@ -27,4 +27,3 @@ export declare namespace ICertificate {
     startedAt: string;
   }
 }
-
