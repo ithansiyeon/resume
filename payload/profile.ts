@@ -9,7 +9,7 @@ const profile: IProfile.Payload = {
   // image: 'https://resume.yowu.dev/static/image/profile_2019.png',
   image,
   name: {
-    title: '벌레 잡는 백앤드 개발자',
+    title: '벌레 잡는 웹 개발자',
     small: '(한시연)',
   },
   contact: [
