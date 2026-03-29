@@ -1,13 +1,11 @@
 import { faEnvelope, faPhone, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { IProfile } from '../component/profile/IProfile';
-import image from '../asset/profile_hsy.jpg';
 
 const profile: IProfile.Payload = {
   disable: false,
 
   // image: 'https://resume.yowu.dev/static/image/profile_2019.png',
-  image,
   name: {
     title: '벌레 잡는 웹 개발자',
     small: '(한시연)',

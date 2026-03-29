@@ -2,7 +2,6 @@ import { Row, Col, Alert } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { PropsWithChildren } from 'react';
 import ProfileContact from './contact';
-import ProfileImage from './image';
 import { EmptyRowCol } from '../common';
 import { IProfile } from './IProfile';
 import { Style } from '../common/Style';
@@ -20,14 +19,11 @@ export const Profile = {
 };
 
 function Component({ payload }: PropsWithChildren<{ payload: Payload }>) {
-  const { image, contact, name, notice } = payload;
+  const { contact, name, notice } = payload;
   return (
     <div className="mt-5">
       <Row>
-        <Col md={3} sm={12}>
-          <ProfileImage src={image} />
-        </Col>
-        <Col md={9} sm={12}>
+        <Col md={12} sm={12}>
           {createNameArea(name)}
           {createProfileContactMap(contact)}
           {createNoticeArea(notice)}
