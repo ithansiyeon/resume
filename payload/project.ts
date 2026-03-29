@@ -6,7 +6,7 @@ const project: IProject.Payload = {
     {
       title: 'Mail-i / WebKeeper / DB-i / WSG-VA 개발 및 유지보수',
       startedAt: '2024-04',
-      endedAt: '2026-01',
+      endedAt: '2026-03',
       where: '소만사',
       descriptions: [
         {

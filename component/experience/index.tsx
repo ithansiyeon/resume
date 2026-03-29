@@ -1,5 +1,5 @@
 import { Badge, Col, Row } from 'reactstrap';
-import { DateTime, Duration } from 'luxon';
+import { DateTime } from 'luxon';
 
 import { PropsWithChildren } from 'react';
 import { EmptyRowCol } from '../common';
@@ -49,21 +49,28 @@ function Component({ payload }: PropsWithChildren<{ payload: Payload }>) {
 }
 
 function getFormattingExperienceTotalDuration(payload: IExperience.Payload) {
-  const durations = payload.list.reduce((acc: Duration[], item: IExperience.Item) => {
-    const itemDurations = item.positions.map((position: IExperience.Position) => {
-      const endedAt = position.endedAt
-        ? DateTime.fromFormat(position.endedAt, Util.LUXON_DATE_FORMAT.YYYY_LL)
-        : DateTime.local();
-      const startedAt = DateTime.fromFormat(position.startedAt, Util.LUXON_DATE_FORMAT.YYYY_LL);
-      return endedAt.diff(startedAt);
-    });
-    return acc.concat(itemDurations); // 중첩된 배열 평탄화
-  }, []);
+  // 전체 월수 계산
+  const totalMonths = payload.list.reduce((total: number, item: IExperience.Item) => {
+    return (
+      total +
+      item.positions.reduce((sum: number, position: IExperience.Position) => {
+        const startedAt = DateTime.fromFormat(position.startedAt, Util.LUXON_DATE_FORMAT.YYYY_LL);
+        const endedAt = position.endedAt
+          ? DateTime.fromFormat(position.endedAt, Util.LUXON_DATE_FORMAT.YYYY_LL)
+          : DateTime.local();
 
-  const totalExperience = durations.reduce(
-    (prev: Duration, cur: Duration) => prev.plus(cur),
-    Duration.fromMillis(0),
-  );
+        const startedAtMonthIndex = startedAt.year * 12 + startedAt.month;
+        const endedAtMonthIndex = endedAt.year * 12 + endedAt.month;
 
-  return totalExperience.toFormat(`총 ${Util.LUXON_DATE_FORMAT.DURATION_KINDNESS}`);
+        // 시작/종료 월 포함(예: 2023-05 ~ 2024-02 => 10개월)
+        const months = Math.max(0, endedAtMonthIndex - startedAtMonthIndex + 1);
+        return sum + months;
+      }, 0)
+    );
+  }, 0);
+
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
+
+  return `총 ${years}년 ${months}개월`;
 }
